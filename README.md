@@ -1,3 +1,7 @@
+# coordinate-plotter
+Basic React.js app for plotting coordinates on a grid
+__
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
