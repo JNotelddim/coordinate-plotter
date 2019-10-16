@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 
 interface Cell {
@@ -10,6 +11,11 @@ interface Row {
     rowName: string
 }
 
+const Table = styled.table`
+    margin: 50px;
+    border: 1px solid black;
+`
+
 const Grid: React.FC = () => {
   let rows: Row[]  = [...Array(15)].map((x) => { 
       let cells: Cell[] = [...Array(15)].map((x) =>{
@@ -20,7 +26,7 @@ const Grid: React.FC = () => {
 
   return (
     <div className="grid">
-        <table>
+        <Table>
             <tbody>
                 {rows.map((row, i) => 
                     <tr key={i}>
@@ -31,7 +37,7 @@ const Grid: React.FC = () => {
                 )}
             </tbody>
             
-        </table>
+        </Table>
     </div>
 
   );
