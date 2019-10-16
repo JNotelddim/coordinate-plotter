@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 interface Cell {
     value: string 
 }
@@ -18,19 +19,17 @@ const Grid: React.FC = () => {
   })
 
   return (
-    <div class="App">
+    <div className="grid">
         <table>
-            {
-                this.props.rows.map((row, i) => 
+            <tbody>
+                {rows.map((row, i) => 
                     <tr key={i}>
-                        {
-                            row.cells.map((cell, j) => {
-                                <td key={j}></td>
-                            })
-                        }
+                        {row.cells.map((cell, j) => 
+                            <td key={j}>0</td>
+                        )}
                     </tr>
-                )
-            }
+                )}
+            </tbody>
             
         </table>
     </div>
