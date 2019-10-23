@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Cell from './Cell';
-import { ICell, IGrid } from '../config/typings.config'
 
-
-interface Row {
-    cells: ICell[],
-    rowName: string
-}
+import { ICell, IGrid, IRow} from '../config/typings.config'
+import TRow from './TRow';
 
 const cellHeight = 25;
 const Table = styled.table`
@@ -31,7 +26,7 @@ const Table = styled.table`
 
 class Grid extends Component<IGrid> {
  
-    rows: Row[]
+    rows: IRow[]
     height: number
     width?: number
 
@@ -41,11 +36,11 @@ class Grid extends Component<IGrid> {
         this.height = props.height;
         this.width = props.width ? props.width : this.height;
         
-        this.rows = [...Array(this.height)].map((x) => { 
+        this.rows = [...Array(this.height)].map((x, j) => { 
           let cells: ICell[] = [...Array(this.width)].map((x, i) =>{
             return { key: i, value: ""}
           })
-          return { cells: cells, rowName: x } 
+          return { cells: cells, index: j} 
         })
     
     }
@@ -56,21 +51,14 @@ class Grid extends Component<IGrid> {
                 <Table>
                     <thead>
                         <th></th>
-                        {
-                            this.rows[0].cells.map((cell, j) => 
-                                <th>{j}</th>
-                            )
-                        }
+                        {this.rows[0].cells.map((cell, j) => 
+                            <th>{j}</th>
+                        )}
                     </thead>
                     
                     <tbody>
                         {this.rows.map((row, i) => 
-                            <tr key={i}>
-                                <td className="row-header">{i}</td>
-                                {row.cells.map((cell, j) => 
-                                    <Cell key={j} value={""}></Cell>
-                                )}
-                            </tr>
+                            <TRow cells={row.cells} index={row.index}></TRow>
                         )}
                     </tbody>
                     
