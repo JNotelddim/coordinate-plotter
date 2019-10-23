@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import Cell from './Cell';
-import {ICell} from '../config/typings.config'
+import { ICell, IGrid } from '../config/typings.config'
 
 
 interface Row {
@@ -24,36 +24,49 @@ const Table = styled.table`
     }
 `
 
-const Grid: React.FC = () => {
-  
-  let rows: Row[]  = [...Array(15)].map((x) => { 
-      let cells: ICell[] = [...Array(15)].map((x, i) =>{
-        return { key: i, value: ""}
-      })
-      return { cells: cells, rowName: x } 
-  })
+class Grid extends Component<IGrid> {
+ 
+    rows: Row[]
+    height: number
+    width?: number
 
-  return (
-    <div className="grid">
-        <Table>
-            <thead>
-                                
-            </thead>
-            
-            <tbody>
-                {rows.map((row, i) => 
-                    <tr key={i}>
-                        {row.cells.map((cell, j) => 
-                            <Cell key={j} value={""}></Cell>
+    constructor(props: IGrid){
+        super(props);
+
+        this.height = props.height;
+        this.width = props.width ? props.width : this.height;
+        
+        this.rows = [...Array(this.height)].map((x) => { 
+          let cells: ICell[] = [...Array(this.width)].map((x, i) =>{
+            return { key: i, value: ""}
+          })
+          return { cells: cells, rowName: x } 
+        })
+    
+    }
+
+    render(){
+        return (
+            <div className="grid">
+                <Table>
+                    <thead>
+                        
+                    </thead>
+                    
+                    <tbody>
+                        {this.rows.map((row, i) => 
+                            <tr key={i}>
+                                {row.cells.map((cell, j) => 
+                                    <Cell key={j} value={""}></Cell>
+                                )}
+                            </tr>
                         )}
-                    </tr>
-                )}
-            </tbody>
-            
-        </Table>
-    </div>
-
-  );
+                    </tbody>
+                    
+                </Table>
+            </div>
+        );
+    }
 }
 
 export default Grid;
