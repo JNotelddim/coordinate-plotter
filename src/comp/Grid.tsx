@@ -21,6 +21,11 @@ const Table = styled.table`
             width: ${cellHeight}px;
             text-align: center;
         }
+
+        td.row-header {
+            background-color: #fff;
+            font-weight: bold;
+        }
     }
 `
 
@@ -50,12 +55,18 @@ class Grid extends Component<IGrid> {
             <div className="grid">
                 <Table>
                     <thead>
-                        
+                        <th></th>
+                        {
+                            this.rows[0].cells.map((cell, j) => 
+                                <th>{j}</th>
+                            )
+                        }
                     </thead>
                     
                     <tbody>
                         {this.rows.map((row, i) => 
                             <tr key={i}>
+                                <td className="row-header">{i}</td>
                                 {row.cells.map((cell, j) => 
                                     <Cell key={j} value={""}></Cell>
                                 )}
