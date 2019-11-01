@@ -27,22 +27,22 @@ const Table = styled.table`
 class Grid extends Component<IGrid> {
  
     rows: IRow[]
-    height: number
-    width?: number
 
     constructor(props: IGrid){
         super(props);
+        this.rows = props.rows;
+    }
 
-        this.height = props.height;
-        this.width = props.width ? props.width : this.height;
-        
-        this.rows = [...Array(this.height)].map((x, j) => { 
-          let cells: ICell[] = [...Array(this.width)].map((x, i) =>{
+    static initializeGrid(width: number, height: number){
+        //create a 2D array of cells to represent the grid
+        let grid = [...Array(height)].map((x, j) => { 
+          let cells: ICell[] = [...Array(width)].map((x, i) =>{
             return { key: i, value: ""}
           })
           return { cells: cells, index: j} 
         })
     
+        return grid
     }
 
     render(){
@@ -67,5 +67,6 @@ class Grid extends Component<IGrid> {
         );
     }
 }
+
 
 export default Grid;

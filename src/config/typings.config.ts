@@ -12,6 +12,5 @@ export interface IRow {
 }
 
 export interface IGrid {
-    height: number
-    width?: number
+    rows: IRow[]
 }

@@ -4,9 +4,12 @@ import './App.css';
 import { GRID_DEFAULT_HEIGHT } from './config/typings.config'
 
 const App: React.FC = () => {
-  return (
-      <Grid height={GRID_DEFAULT_HEIGHT}></Grid>
-  );
+
+    let grid = Grid.initializeGrid(GRID_DEFAULT_HEIGHT, GRID_DEFAULT_HEIGHT);
+
+    return (
+        <Grid rows={grid}></Grid>
+    );
 }
 
 export default App;
