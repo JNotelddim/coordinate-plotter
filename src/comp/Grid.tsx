@@ -7,7 +7,6 @@ import TRow from './TRow';
 const cellHeight = 25;
 const Table = styled.table`
     { 
-        margin: 50px;
         border: 1px solid black;
 
         td {
@@ -47,7 +46,7 @@ class Grid extends Component<IGrid> {
         return grid
     }
 
-    getJsonState(){
+    getStateObject(){
         let snakes = []
         let foods = []
 
@@ -68,9 +67,11 @@ class Grid extends Component<IGrid> {
             }
         }
 
-        let jsonObject = {snakes: snakes.join(','), foods: foods.join(',')}
+        //let jsonObject = {snakes: snakes.join(','), foods: foods.join(',')}
+        let jsonObject = {snakes: snakes, foods: foods}
 
-        return JSON.stringify(jsonObject);
+        //return JSON.stringify(jsonObject);
+        return jsonObject;
     }
 
     render(){
