@@ -27,10 +27,13 @@ const Table = styled.table`
 class Grid extends Component<IGrid> {
  
     rows: IRow[]
+    rowRefs: any[]
 
     constructor(props: IGrid){
         super(props);
         this.rows = props.rows;
+        this.rowRefs = Array(props.rows.length).map(() => React.createRef())
+        console.log(this.rowRefs)
     }
 
     static initializeGrid(width: number, height: number){
@@ -50,6 +53,8 @@ class Grid extends Component<IGrid> {
         let foods = []
 
         console.log(this.rows)
+        console.log(this.rowRefs)
+
         for(let r=0; r < this.rows.length; r++){
         
             for(let c=0; c < this.rows[r].cells.length; c++){
@@ -88,7 +93,12 @@ class Grid extends Component<IGrid> {
                     
                     <tbody>
                         {this.rows.map((row, i) => 
-                            <TRow cells={row.cells} index={row.index} key={i}></TRow>
+                            <TRow 
+                                cells={row.cells} 
+                                index={row.index} 
+                                key={i} 
+                                ref={(ref) => { this.rowRefs[i] = ref; return true;} }>
+                            </TRow>
                         )}
                     </tbody>
                     

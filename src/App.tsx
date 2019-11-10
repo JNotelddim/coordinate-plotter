@@ -13,11 +13,16 @@ class App extends React.Component{
         this.grid = React.createRef();//{getJsonState: () => "test"}
     }
 
+    showGridState(){
+        console.log(this.grid)
+        alert(this.grid.current.getJsonState())
+    }
+
     render(){
         return (
             <div>
                 <Grid rows={this.rows} ref={this.grid}></Grid>
-                <button onClick={() => alert(this.grid.current.getJsonState())}>Show Grid State</button>
+                <button onClick={this.showGridState.bind(this)}>Show Grid State</button>
             </div>
         );
     }

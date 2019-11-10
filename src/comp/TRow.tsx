@@ -18,7 +18,12 @@ class TRow extends Component<IRow>{
         return <tr key={this.index}>
                     <td className="row-header">{this.index}</td>
                     {this.cells.map((cell, j) => 
-                        <Cell key={j} cellKey={j} value={""} ref={this.cellRefs[j]}></Cell>
+                        <Cell 
+                            key={j} 
+                            cellKey={j} 
+                            value={""} 
+                            ref={(ref) => { this.cellRefs[j] = ref; return true;} }>
+                        </Cell>
                     )}
                 </tr>
     }
