@@ -33,7 +33,6 @@ class Grid extends Component<IGrid> {
         super(props);
         this.rows = props.rows;
         this.rowRefs = Array(props.rows.length).map(() => React.createRef())
-        console.log(this.rowRefs)
     }
 
     static initializeGrid(width: number, height: number){
@@ -52,14 +51,11 @@ class Grid extends Component<IGrid> {
         let snakes = []
         let foods = []
 
-        console.log(this.rows)
-        console.log(this.rowRefs)
+        for(let r=0; r < this.rowRefs.length; r++){
+            let row = this.rowRefs[r]
 
-        for(let r=0; r < this.rows.length; r++){
-        
-            for(let c=0; c < this.rows[r].cells.length; c++){
-                
-                let cell = this.rows[r].cells[c];
+            for(let c=0; c < row.cellRefs.length; c++){
+                let cell = row.cellRefs[c]
 
                 if(!cell.value)
                     continue;
@@ -72,8 +68,7 @@ class Grid extends Component<IGrid> {
             }
         }
 
-        let jsonObject = {snakes: snakes, foods: foods}
-        console.log(jsonObject);
+        let jsonObject = {snakes: snakes.join(','), foods: foods.join(',')}
 
         return JSON.stringify(jsonObject);
     }

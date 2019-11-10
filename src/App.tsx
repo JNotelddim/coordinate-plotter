@@ -10,11 +10,10 @@ class App extends React.Component{
     constructor(props: any){
         super(props)
         this.rows = Grid.initializeGrid(GRID_DEFAULT_HEIGHT, GRID_DEFAULT_HEIGHT);
-        this.grid = React.createRef();//{getJsonState: () => "test"}
+        this.grid = React.createRef();
     }
 
     showGridState(){
-        console.log(this.grid)
         alert(this.grid.current.getJsonState())
     }
 
