@@ -1,7 +1,7 @@
 export const GRID_DEFAULT_HEIGHT = 15
 
 export interface ICell {
-    key: number
+    cellKey: number
     value: any
     onClick?: (event: React.MouseEvent<HTMLTableDataCellElement>) => void
 }

@@ -9,16 +9,20 @@ export default class Cell extends Component<ICell>  {
 
     constructor(props: ICell){
         super(props);
-        this.key = props.key;
+        this.key = props.cellKey;
         this.value = props.value;
     }
 
     onClick(e: React.MouseEvent){
+        this.value = this.getNextCellValue();
+        this.setState({});
+    }
+
+    getNextCellValue(){
         let currentValueIndex = CELL_VALUES.indexOf(this.value);
         let newValueIndex = currentValueIndex >= CELL_VALUES.length ? 0 : currentValueIndex + 1
         let newValue = CELL_VALUES[newValueIndex]
-        this.value = newValue;
-        this.setState({});
+        return newValue;
     }
 
     render(){

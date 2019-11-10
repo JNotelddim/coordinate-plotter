@@ -3,13 +3,24 @@ import Grid from './comp/Grid';
 import './App.css';
 import { GRID_DEFAULT_HEIGHT } from './config/typings.config'
 
-const App: React.FC = () => {
+class App extends React.Component{
+    rows: any[]
+    grid: any
 
-    let grid = Grid.initializeGrid(GRID_DEFAULT_HEIGHT, GRID_DEFAULT_HEIGHT);
+    constructor(props: any){
+        super(props)
+        this.rows = Grid.initializeGrid(GRID_DEFAULT_HEIGHT, GRID_DEFAULT_HEIGHT);
+        this.grid = React.createRef();//{getJsonState: () => "test"}
+    }
 
-    return (
-        <Grid rows={grid}></Grid>
-    );
+    render(){
+        return (
+            <div>
+                <Grid rows={this.rows} ref={this.grid}></Grid>
+                <button onClick={() => alert(this.grid.current.getJsonState())}>Show Grid State</button>
+            </div>
+        );
+    }
 }
 
 export default App;

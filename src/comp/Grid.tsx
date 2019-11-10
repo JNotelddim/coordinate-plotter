@@ -37,7 +37,7 @@ class Grid extends Component<IGrid> {
         //create a 2D array of cells to represent the grid
         let grid = [...Array(height)].map((x, j) => { 
           let cells: ICell[] = [...Array(width)].map((x, i) =>{
-            return { key: i, value: ""}
+            return { cellKey: i, value: ""}
           })
           return { cells: cells, index: j} 
         })
@@ -45,20 +45,50 @@ class Grid extends Component<IGrid> {
         return grid
     }
 
+    getJsonState(){
+        let snakes = []
+        let foods = []
+
+        console.log(this.rows)
+        for(let r=0; r < this.rows.length; r++){
+        
+            for(let c=0; c < this.rows[r].cells.length; c++){
+                
+                let cell = this.rows[r].cells[c];
+
+                if(!cell.value)
+                    continue;
+
+                if(cell.value === "x")
+                    snakes.push("(" + c + "," + r + ")")
+                
+                if(cell.value === "f")
+                    foods.push("(" + c + "," + r + ")")
+            }
+        }
+
+        let jsonObject = {snakes: snakes, foods: foods}
+        console.log(jsonObject);
+
+        return JSON.stringify(jsonObject);
+    }
+
     render(){
         return (
             <div className="grid">
                 <Table>
                     <thead>
-                        <th></th>
-                        {this.rows[0].cells.map((cell, j) => 
-                            <th>{j}</th>
-                        )}
+                        <tr>
+                            <th key={-1}></th>
+                            {this.rows[0].cells.map((cell, j) => 
+                                <th key={j}>{j}</th>
+                            )}
+                        </tr>
                     </thead>
                     
                     <tbody>
                         {this.rows.map((row, i) => 
-                            <TRow cells={row.cells} index={row.index}></TRow>
+                            <TRow cells={row.cells} index={row.index} key={i}></TRow>
                         )}
                     </tbody>
                     
