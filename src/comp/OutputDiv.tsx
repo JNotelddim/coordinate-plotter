@@ -25,17 +25,20 @@ export default class OutputDiv extends Component<{stateObject: GridState}> {
         }
     }
 
-    componentWillReceiveProps(props: {stateObject: GridState}){
-        this.setState({
+    static getDerivedStateFromProps(props: {stateObject: GridState}, state: GridState){
+
+        let newState = {
             snakes: props.stateObject.snakes,
             foods: props.stateObject.foods
-        })
+        }
+
+        return newState
     }
 
     render(){
         return <StyledDiv>
-                <p> Snakes : {this.state.snakes} </p>
-                <p> Foods : {this.state.foods} </p>
+                <p> Snakes : {this.state.snakes.join(',')} </p>
+                <p> Foods : {this.state.foods.join(',')} </p>
             </StyledDiv> 
     }
 }
