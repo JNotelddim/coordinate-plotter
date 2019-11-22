@@ -55,14 +55,15 @@ class Grid extends Component<IGrid> {
 
             for(let c=0; c < row.cellRefs.length; c++){
                 let cell = row.cellRefs[c]
+                if(!cell) continue
 
-                if(!cell.value)
-                    continue;
+                let cellState = cell.state;
+                if(!cellState.value) continue
 
-                if(cell.value === "x")
+                if(cellState.value === "x")
                     snakes.push("(" + c + "," + r + ")")
                 
-                if(cell.value === "f")
+                if(cellState.value === "f")
                     foods.push("(" + c + "," + r + ")")
             }
         }

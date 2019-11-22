@@ -4,28 +4,34 @@ import {ICell} from '../config/typings.config'
 const CELL_VALUES = ["", "x", "f"]
 
 export default class Cell extends Component<ICell>  {
-    key: number
-    value: any
+    state: {
+        key: number,
+        value: any
+    }
 
     constructor(props: ICell){
         super(props);
-        this.key = props.cellKey;
-        this.value = props.value;
+        this.state = {
+            key: props.cellKey,
+            value: props.value
+        }
     }
 
     onClick(e: React.MouseEvent){
-        this.value = this.getNextCellValue();
-        this.setState({});
+        this.setState({
+            key: this.state.key, 
+            value: this.getNextCellValue()
+        });
     }
 
     getNextCellValue(){
-        let currentValueIndex = CELL_VALUES.indexOf(this.value);
+        let currentValueIndex = CELL_VALUES.indexOf(this.state.value);
         let newValueIndex = currentValueIndex >= CELL_VALUES.length ? 0 : currentValueIndex + 1
         let newValue = CELL_VALUES[newValueIndex]
         return newValue;
     }
 
     render(){
-        return <td key={this.key} onClick={this.onClick.bind(this)}> {this.value} </td>
+        return <td key={this.state.key} onClick={this.onClick.bind(this)}> {this.state.value} </td>
     }
 }
