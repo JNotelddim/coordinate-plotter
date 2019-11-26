@@ -4,46 +4,44 @@ import styled from 'styled-components';
 import Grid from './comp/Grid';
 import OutputDiv from './comp/OutputDiv';
 import './App.css';
-import { GRID_DEFAULT_HEIGHT, AppState, IRow } from './config/typings.config'
+import { GRID_DEFAULT_HEIGHT, IAppState, ICell } from './config/typings.config'
 
 const Margin = styled.div`
     margin: 50px;
 `
-const defaultState = {
-    gridState: {
-        snakes: [],
-        foods: []
+
+let constructCellRows: Function = (height: number, width: number) => {
+    let rows: ICell[][] = []
+
+    for(let i = 0; i < height; i++){
+        let newRow = []
+        
+        for(let j = 0; j < width; j++){
+            let newCell: ICell = {value: "", cellKey: j}
+            newRow.push(newCell)
+        }
+        rows.push(newRow)
     }
+    return rows
 }
 
+const defaultState: IAppState = {
+    gridState: { 
+        cellRows: constructCellRows(GRID_DEFAULT_HEIGHT, GRID_DEFAULT_HEIGHT)
+    },
+    height: GRID_DEFAULT_HEIGHT,
+    width: GRID_DEFAULT_HEIGHT
+}
 
 class App extends React.Component{
-    rows: IRow[]
-    grid: any
-    outputDiv: any
-    state: any
+    state: IAppState
 
 
-    constructor(props: AppState){
+    constructor(props: any){
         super(props)
-        console.log(props)
-        console.log(this.state);
 
-        this.grid = React.createRef();
-        this.outputDiv = React.createRef();
         this.state = defaultState;
         console.log(this.state);
-
-        this.rows = Grid.initializeGrid(GRID_DEFAULT_HEIGHT, GRID_DEFAULT_HEIGHT);
-
-    }
-
-    showGridState(){
-        let newState = {
-            gridState: this.grid.current.getStateObject()
-        }
-        console.log(newState);
-        this.setState(newState);
     }
 
     render(){
@@ -52,17 +50,11 @@ class App extends React.Component{
         return (
             <Margin>
                 <Grid 
-                    rows={this.rows} 
-                    ref={this.grid}>
+                    appstate={this.state}>
                 </Grid>
                 
-                <button 
-                    onClick={this.showGridState.bind(this)}>Show Grid State
-                </button>
-                
                 <OutputDiv 
-                    stateObject={this.state.gridState} 
-                    ref={this.outputDiv}>
+                    stateObject={this.state}>
                 </OutputDiv>
             </Margin>
         );

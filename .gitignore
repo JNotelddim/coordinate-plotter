@@ -1,6 +1,9 @@
 # vim swap files
 *.swp
 
+# DS Store
+*.DS_Store
+
 # Logs
 logs
 *.log
@@ -62,4 +65,3 @@ typings/
 
 # next.js build output
 .next
->>>>>>> a6855bf5786111e65e74cc8a3248536ba742d465

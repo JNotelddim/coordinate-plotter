@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { ICell, IGrid, IRow} from '../config/typings.config'
-import TRow from './TRow';
+import { IGrid, IAppState} from '../config/typings.config'
+import Cell from './Cell';
 
 const cellHeight = 25;
 const Table = styled.table`
@@ -23,56 +23,16 @@ const Table = styled.table`
     }
 `
 
-class Grid extends Component<IGrid> {
- 
-    rows: IRow[]
-    rowRefs: any[]
+class Grid extends Component<{appstate: IAppState}> {
+    state: IGrid
+    height: number
+    width: number
 
-    constructor(props: IGrid){
-        super(props);
-        this.rows = props.rows;
-        this.rowRefs = Array(props.rows.length).map(() => React.createRef())
-    }
-
-    static initializeGrid(width: number, height: number){
-        //create a 2D array of cells to represent the grid
-        let grid = [...Array(height)].map((x, j) => { 
-          let cells: ICell[] = [...Array(width)].map((x, i) =>{
-            return { cellKey: i, value: ""}
-          })
-          return { cells: cells, index: j} 
-        })
-    
-        return grid
-    }
-
-    getStateObject(){
-        let snakes = []
-        let foods = []
-
-        for(let r=0; r < this.rowRefs.length; r++){
-            let row = this.rowRefs[r]
-
-            for(let c=0; c < row.cellRefs.length; c++){
-                let cell = row.cellRefs[c]
-                if(!cell) continue
-
-                let cellState = cell.state;
-                if(!cellState.value) continue
-
-                if(cellState.value === "x")
-                    snakes.push("(" + c + "," + r + ")")
-                
-                if(cellState.value === "f")
-                    foods.push("(" + c + "," + r + ")")
-            }
-        }
-
-        //let jsonObject = {snakes: snakes.join(','), foods: foods.join(',')}
-        let jsonObject = {snakes: snakes, foods: foods}
-
-        //return JSON.stringify(jsonObject);
-        return jsonObject;
+    constructor(props: { appstate: IAppState} ){
+        super(props)
+        this.state = props.appstate.gridState
+        this.height = props.appstate.height
+        this.width = props.appstate.width
     }
 
     render(){
@@ -82,20 +42,28 @@ class Grid extends Component<IGrid> {
                     <thead>
                         <tr>
                             <th key={-1}></th>
-                            {this.rows[0].cells.map((cell, j) => 
+                            {Array(this.width).fill(0).map((z, j) => 
                                 <th key={j}>{j}</th>
                             )}
                         </tr>
                     </thead>
                     
                     <tbody>
-                        {this.rows.map((row, i) => 
-                            <TRow 
-                                cells={row.cells} 
-                                index={row.index} 
-                                key={i} 
-                                ref={(ref) => { this.rowRefs[i] = ref; return true;} }>
-                            </TRow>
+                        {this.state.cellRows.map((row, i) => 
+                            <tr key={i}>
+                                <td className="row-header" key={-1}>
+                                    {i}
+                                </td>
+
+                               {row.map((cell, j) => 
+                                   <Cell
+                                        key={j}
+                                        cellKey={j}
+                                        value={cell.value}>
+                                   </Cell>
+                               )
+                               } 
+                            </tr>
                         )}
                     </tbody>
                     
