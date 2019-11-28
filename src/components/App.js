@@ -1,5 +1,6 @@
 import React from "react";
 import Grid from "./Grid";
+import Output from "./Output";
 
 const DEFAULT_SIZE = 15;
 const createGrid = (height, width) => {
@@ -41,6 +42,7 @@ class App extends React.Component {
     return (
       <div>
         <Grid gridConfig={this.state.grid} onCellClick={this.onCellClick} />
+        <Output gridContents={this.state.grid.contents} />
       </div>
     );
   }
