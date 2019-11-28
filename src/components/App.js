@@ -21,17 +21,22 @@ class App extends React.Component {
       width: DEFAULT_SIZE,
       contents: createGrid(DEFAULT_SIZE, DEFAULT_SIZE)
     },
-    snakes: ["A"]
+    snakes: ["Snake1"]
   };
 
-  getNextCellValue = () => {
-    return "clicked";
+  getNextCellValue = current => {
+    let potentialCellValues = ["", "f", ...this.state.snakes];
+    let currentIndex = potentialCellValues.indexOf(current);
+    if (currentIndex < 0) return potentialCellValues[0];
+
+    let nextIndex =
+      currentIndex >= potentialCellValues.length ? 0 : currentIndex + 1;
+    return potentialCellValues[nextIndex];
   };
 
   onCellClick = (x, y) => {
-    console.log("x: " + x + "y: " + y);
-    console.log(this.state);
-    let nextValue = this.getNextCellValue();
+    let currentValue = this.state.grid.contents[y][x];
+    let nextValue = this.getNextCellValue(currentValue);
     let newGrid = this.state.grid;
     newGrid.contents[y][x] = nextValue;
 
@@ -41,6 +46,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <div>Snakes: {this.state.snakes.join(",")}</div>
         <Grid gridConfig={this.state.grid} onCellClick={this.onCellClick} />
         <Output gridContents={this.state.grid.contents} />
       </div>
