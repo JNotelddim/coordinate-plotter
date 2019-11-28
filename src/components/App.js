@@ -23,10 +23,24 @@ class App extends React.Component {
     snakes: ["A"]
   };
 
+  getNextCellValue = () => {
+    return "clicked";
+  };
+
+  onCellClick = (x, y) => {
+    console.log("x: " + x + "y: " + y);
+    console.log(this.state);
+    let nextValue = this.getNextCellValue();
+    let newGrid = this.state.grid;
+    newGrid.contents[y][x] = nextValue;
+
+    this.setState({ grid: newGrid });
+  };
+
   render() {
     return (
       <div>
-        <Grid gridConfig={this.state.grid} />
+        <Grid gridConfig={this.state.grid} onCellClick={this.onCellClick} />
       </div>
     );
   }
