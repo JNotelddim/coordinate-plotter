@@ -1,7 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
+import { setCellContents } from "../state/grid/grid.actions";
 
-const Cell = ({ x, y, value, onCellClick }) => {
-  return <td onClick={() => onCellClick(x, y)}>{value}</td>;
+const Cell = ({ x, y, value, setCellContents, inputMode }) => {
+  return <td onClick={() => setCellContents(inputMode, x, y)}>{value}</td>;
 };
 
-export default Cell;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    setCellContents,
+    ...ownProps,
+    inputMode: state.grid.inputMode
+  };
+};
+
+export default connect(mapStateToProps, { setCellContents })(Cell);
