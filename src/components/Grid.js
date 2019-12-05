@@ -1,16 +1,36 @@
 import React from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
 import Cell from "./Cell";
 import InputModeSelector from "./InputModeSelector";
+
+let Wrapper = styled.div`
+  border: 1px solid grey;
+  padding: 15px;
+`;
+
+let StyledGrid = styled.div`
+  display: grid;
+  height: 600px;
+  grid-template-columns: repeat(15, auto);
+  grid-template-rows: repeat(15, auto);
+`;
 
 const Grid = ({ grid }) => {
   let { height, width, contents } = grid;
 
   return (
-    <div>
+    <Wrapper>
       Grid -- h: {height}, w: {width}
-      <table className="ui celled padded table">
-        {/* HEADERS */}
+      <StyledGrid>
+        {contents.map((row, y) =>
+          row.map((cell, x) => <Cell key={x} x={x} y={y} value={cell}></Cell>)
+        )}
+      </StyledGrid>
+      {/*
+      
+      <table className="ui celled padded table" style={{ display: "none" }}>
+        {/* HEADERS /}
         <thead>
           <tr>
             <th key={-1}></th>
@@ -22,7 +42,7 @@ const Grid = ({ grid }) => {
           </tr>
         </thead>
 
-        {/* TABLE BODY */}
+        {/* TABLE BODY /}
         <tbody>
           {contents.map((row, y) => (
             <tr key={y}>
@@ -34,8 +54,9 @@ const Grid = ({ grid }) => {
           ))}
         </tbody>
       </table>
+      */}
       <InputModeSelector />
-    </div>
+    </Wrapper>
   );
 };
 
