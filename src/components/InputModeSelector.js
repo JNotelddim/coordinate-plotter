@@ -9,11 +9,15 @@ let Container = styled.div`
   background-color: aliceblue;
 `;
 
-const InputModeSelector = ({ snakes, setInputMode }) => {
+const InputModeSelector = ({ snakes, inputMode, setInputMode }) => {
   let inputModeOptions = ["", "Food", ...snakes];
   let modeOptionButtons = inputModeOptions.map((option, i) => (
-    <button key={i} onClick={() => setInputMode(option)}>
-      {option}
+    <button
+      key={i}
+      onClick={() => setInputMode(option)}
+      className={`ui button ${inputMode === option ? "primary" : ""}`}
+    >
+      {option === "" ? "(Clear)" : option}
     </button>
   ));
 
@@ -21,8 +25,7 @@ const InputModeSelector = ({ snakes, setInputMode }) => {
 };
 
 const mapStateToProps = state => {
-  let snakes = ["s1", "s2"];
-  return { snakes: snakes };
+  return { snakes: state.snakes, inputMode: state.grid.inputMode };
 };
 
 export default connect(mapStateToProps, { setInputMode })(InputModeSelector);
