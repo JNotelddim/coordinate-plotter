@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { setInputMode } from "../state/grid/grid.actions";
 import * as gridTypes from "../state/grid/grid.types";
+import Button from "./Button";
 
 let Container = styled.div`
   margin: 15px;
@@ -16,17 +17,23 @@ const InputModeSelector = ({ snakes, inputMode, setInputMode }) => {
     gridTypes.FOOD_INPUT_MODE,
     ...snakes
   ];
+
   let modeOptionButtons = inputModeOptions.map((option, i) => (
-    <button
+    <Button
       key={i}
       onClick={() => setInputMode(option)}
-      className={`ui button ${inputMode === option ? "primary" : ""}`}
+      selected={inputMode === option}
     >
       {option.name}
-    </button>
+    </Button>
   ));
 
-  return <Container>{modeOptionButtons}</Container>;
+  return (
+    <Container>
+      <div> Input Modes:</div>
+      {modeOptionButtons}
+    </Container>
+  );
 };
 
 const mapStateToProps = state => {

@@ -12,8 +12,9 @@ let Wrapper = styled.div`
 let StyledGrid = styled.div`
   display: grid;
   height: 600px;
-  grid-template-columns: repeat(15, auto);
-  grid-template-rows: repeat(15, auto);
+  width: 600px;
+  grid-template-columns: repeat(15, 6%);
+  grid-template-rows: repeat(15, 6%);
 `;
 
 const Grid = ({ grid }) => {

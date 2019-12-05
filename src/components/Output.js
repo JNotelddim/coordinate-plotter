@@ -11,7 +11,8 @@ const Output = ({ coordinateGroups }) => {
   let sectionIds = [...Object.keys(coordinateGroups)];
   let sections = sectionIds.map((sectionId, i) => (
     <p key={i}>
-      {coordinateGroups[sectionId].name} : {coordinateGroups[sectionId].values}
+      {coordinateGroups[sectionId].name} :{" "}
+      {coordinateGroups[sectionId].values.join(", ")}
     </p>
   ));
   return <BackgroundDiv>{sections}</BackgroundDiv>;
