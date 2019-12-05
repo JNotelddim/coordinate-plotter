@@ -8,10 +8,10 @@ const BackgroundDiv = styled.div`
 `;
 
 const Output = ({ coordinateGroups }) => {
-  let sectionNames = [...Object.keys(coordinateGroups)];
-  let sections = sectionNames.map((sectionName, i) => (
+  let sectionIds = [...Object.keys(coordinateGroups)];
+  let sections = sectionIds.map((sectionId, i) => (
     <p key={i}>
-      {sectionName} : {coordinateGroups[sectionName]}
+      {coordinateGroups[sectionId].name} : {coordinateGroups[sectionId].values}
     </p>
   ));
   return <BackgroundDiv>{sections}</BackgroundDiv>;
@@ -19,20 +19,18 @@ const Output = ({ coordinateGroups }) => {
 
 const mapStateToProps = state => {
   let coordinateGroups = {};
-  state.snakes.forEach(snake => (coordinateGroups[snake.name] = []));
-  coordinateGroups[gridTypes.FOOD_INPUT_MODE.name] = [];
-
-  let idToNameMap = {
-    [gridTypes.FOOD_INPUT_MODE.id]: gridTypes.FOOD_INPUT_MODE.name,
-    [gridTypes.CLEAR_INPUT_MODE.id]: gridTypes.CLEAR_INPUT_MODE.name
+  state.snakes.forEach(
+    snake => (coordinateGroups[snake.id] = { name: snake.name, values: [] })
+  );
+  coordinateGroups[gridTypes.FOOD_INPUT_MODE.id] = {
+    name: gridTypes.FOOD_INPUT_MODE.name,
+    values: []
   };
-  state.snakes.forEach(snake => (idToNameMap[snake.id] = snake.name));
 
   state.grid.contents.forEach((row, y) => {
     row.forEach((cell, x) => {
       if (cell !== gridTypes.CLEAR_INPUT_MODE.id) {
-        let name = idToNameMap[cell];
-        coordinateGroups[name].push(`(${x},${y})`);
+        coordinateGroups[cell].values.push(`(${x},${y})`);
       }
     });
   });
