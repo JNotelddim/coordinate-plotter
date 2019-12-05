@@ -41,6 +41,7 @@ const gridReducer = (state = DEFAULT_GRID_STATE, action) => {
       let newCellValueContents = [...state.contents];
       let { x, y, newValue } = action.payload;
       newCellValueContents[y][x] = newValue.id;
+      console.log(newValue);
       return { ...state, contents: newCellValueContents };
 
     default:
