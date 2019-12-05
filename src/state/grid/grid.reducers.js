@@ -16,7 +16,7 @@ const DEFAULT_GRID_STATE = {
   height: DEFAULT_HEIGHT,
   width: DEFAULT_HEIGHT,
   contents: createGrid(DEFAULT_HEIGHT, DEFAULT_HEIGHT), //TODO: intializeGrid(15, 15)
-  inputMode: "Food"
+  inputMode: types.FOOD_INPUT_MODE
 };
 
 const gridReducer = (state = DEFAULT_GRID_STATE, action) => {
@@ -40,7 +40,7 @@ const gridReducer = (state = DEFAULT_GRID_STATE, action) => {
     case types.SET_CELL_CONTENTS:
       let newCellValueContents = [...state.contents];
       let { x, y, newValue } = action.payload;
-      newCellValueContents[y][x] = newValue;
+      newCellValueContents[y][x] = newValue.id;
       return { ...state, contents: newCellValueContents };
 
     default:

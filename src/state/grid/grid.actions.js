@@ -12,18 +12,8 @@ const updateGridWidth = newWidth => {
   return { type: types.UPDATE_WIDTH, payload: newWidth };
 };
 
-/*
-const cycleCellContents = (x, y) => {
-  return { type: types.CYCLE_CELL_CONTENTS, payload: { x, y } };
-};*/
-
 const setInputMode = newInputMode => {
   return { type: types.SET_INPUT_MODE, payload: newInputMode };
 };
 
-export {
-  updateGridHeight,
-  updateGridWidth,
-  /*cycleCellContents,*/ setCellContents,
-  setInputMode
-};
+export { updateGridHeight, updateGridWidth, setCellContents, setInputMode };
