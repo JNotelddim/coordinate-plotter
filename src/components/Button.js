@@ -5,7 +5,7 @@ const StyledButton = styled.button`
   border: none;
   border-radius: 3px;
   background: ${props => (props.selected ? "#00f" : "#eee")};
-  color: ${props => (props.selected ? "white" : "black")}
+  color: ${props => (props.selected ? "white" : "black")};
   text-align: center;
   padding: 0.8em 1.5em;
   margin: 1em 2em;

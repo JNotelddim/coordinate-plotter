@@ -13,49 +13,38 @@ let StyledGrid = styled.div`
   display: grid;
   height: 600px;
   width: 600px;
-  grid-template-columns: repeat(15, 6%);
-  grid-template-rows: repeat(15, 6%);
+  grid-template-columns: repeat(16, 6%);
+  grid-template-rows: repeat(16, 6%);
+`;
+
+let GridMeta = styled.section`
+  background: aliceblue;
+  margin-bottom: 15px;
 `;
 
 const Grid = ({ grid }) => {
   let { height, width, contents } = grid;
 
+  let headers = Array(contents.length + 1)
+    .fill(0)
+    .map((empty, i) => <div key={i}>{i === 0 ? "" : i - 1}</div>);
+
   return (
     <Wrapper>
-      Grid -- h: {height}, w: {width}
+      <GridMeta>
+        Grid -- h: {height}, w: {width}
+      </GridMeta>
       <StyledGrid>
-        {contents.map((row, y) =>
-          row.map((cell, x) => <Cell key={x} x={x} y={y} value={cell}></Cell>)
-        )}
+        {headers}
+        {contents.map((row, y) => (
+          <React.Fragment key={y}>
+            <span>{y}</span>
+            {row.map((cell, x) => (
+              <Cell key={x} x={x} y={y} value={cell}></Cell>
+            ))}
+          </React.Fragment>
+        ))}
       </StyledGrid>
-      {/*
-      
-      <table className="ui celled padded table" style={{ display: "none" }}>
-        {/* HEADERS /}
-        <thead>
-          <tr>
-            <th key={-1}></th>
-            {Array(width)
-              .fill(0)
-              .map((empty, x) => (
-                <th key={x}>{x}</th>
-              ))}
-          </tr>
-        </thead>
-
-        {/* TABLE BODY /}
-        <tbody>
-          {contents.map((row, y) => (
-            <tr key={y}>
-              <td key="-1">{y}</td>
-              {row.map((cellValue, x) => (
-                <Cell key={x} x={x} y={y} value={cellValue} />
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      */}
       <InputModeSelector />
     </Wrapper>
   );
