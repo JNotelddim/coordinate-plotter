@@ -8,11 +8,17 @@ let CellWrapper = styled.div`
   border: 1px solid black;
   text-align: center;
   padding: 0;
+  height: ${props => (props.height ? props.height : 25)}px;
+  width: ${props => (props.height ? props.height : 25)}px;
 `;
 
-const Cell = ({ x, y, value, setCellContents, inputMode }) => {
+const Cell = ({ x, y, value, setCellContents, inputMode, height }) => {
+  console.log(height);
   return (
-    <CellWrapper onClick={() => setCellContents(inputMode, x, y)}>
+    <CellWrapper
+      onClick={() => setCellContents(inputMode, x, y)}
+      height={height}
+    >
       {value}
     </CellWrapper>
   );

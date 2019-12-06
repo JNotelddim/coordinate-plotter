@@ -4,14 +4,17 @@ import styled from "styled-components";
 import * as gridTypes from "../state/grid/grid.types";
 
 const BackgroundDiv = styled.div`
-  background-color: #eee;
+  background-color: aliceblue;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 3px;
 `;
 
 const Output = ({ coordinateGroups }) => {
   let sectionIds = [...Object.keys(coordinateGroups)];
   let sections = sectionIds.map((sectionId, i) => (
     <p key={i}>
-      {coordinateGroups[sectionId].name} :{" "}
+      <b>{coordinateGroups[sectionId].name}</b> :{" "}
       {coordinateGroups[sectionId].values.join(", ")}
     </p>
   ));

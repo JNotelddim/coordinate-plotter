@@ -6,10 +6,7 @@ import { setInputMode } from "../state/grid/grid.actions";
 import * as gridTypes from "../state/grid/grid.types";
 import Button from "./Button";
 
-let Container = styled.div`
-  margin: 15px;
-  background-color: aliceblue;
-`;
+const Container = styled.div``;
 
 const InputModeSelector = ({ snakes, inputMode, setInputMode }) => {
   let inputModeOptions = [
@@ -18,7 +15,7 @@ const InputModeSelector = ({ snakes, inputMode, setInputMode }) => {
     ...snakes
   ];
 
-  let modeOptionButtons = inputModeOptions.map((option, i) => (
+  const modeOptionButtons = inputModeOptions.map((option, i) => (
     <Button
       key={i}
       onClick={() => setInputMode(option)}
@@ -28,12 +25,7 @@ const InputModeSelector = ({ snakes, inputMode, setInputMode }) => {
     </Button>
   ));
 
-  return (
-    <Container>
-      <div> Input Modes:</div>
-      {modeOptionButtons}
-    </Container>
-  );
+  return <Container>{modeOptionButtons}</Container>;
 };
 
 const mapStateToProps = state => {
