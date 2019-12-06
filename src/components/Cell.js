@@ -13,7 +13,6 @@ let CellWrapper = styled.div`
 `;
 
 const Cell = ({ x, y, value, setCellContents, inputMode, height }) => {
-  console.log(height);
   return (
     <CellWrapper
       onClick={() => setCellContents(inputMode, x, y)}

@@ -22,13 +22,27 @@ const DEFAULT_GRID_STATE = {
 const gridReducer = (state = DEFAULT_GRID_STATE, action) => {
   switch (action.type) {
     case types.SET_INPUT_MODE:
-      console.log(action.payload);
       return { ...state, inputMode: action.payload };
 
     case types.UPDATE_HEIGHT:
       let newHeight = action.payload;
-      let newHeightContents = [...state.contents].splice(0, newHeight);
-      return { ...state, height: newHeightContents };
+      let oldHeight = state.height;
+      console.log(
+        `oldHeight(${oldHeight}) - newHeight(${newHeight}) = ${-1 *
+          (oldHeight - newHeight)}`
+      );
+      if (isNaN(newHeight)) return state;
+
+      let newHeightContents = [...state.contents];
+      if (newHeight < oldHeight) {
+        newHeightContents = newHeightContents.splice(0, newHeight);
+      } else if (newHeight > oldHeight) {
+        newHeightContents.push(
+          ...Array(newHeight - oldHeight).fill(Array(state.width).fill(""))
+        );
+      }
+
+      return { ...state, height: newHeight, contents: newHeightContents };
 
     case types.UPDATE_WIDTH:
       let newWidth = action.payload;
@@ -41,7 +55,6 @@ const gridReducer = (state = DEFAULT_GRID_STATE, action) => {
       let newCellValueContents = [...state.contents];
       let { x, y, newValue } = action.payload;
       newCellValueContents[y][x] = newValue.id;
-      console.log(newValue);
       return { ...state, contents: newCellValueContents };
 
     default:

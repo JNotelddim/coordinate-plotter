@@ -1,38 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+
 import Cell from "./Cell";
+import GridMeta from "./GridMeta";
 import InputModeSelector from "./InputModeSelector";
 
-let Wrapper = styled.div.attrs({ id: "grid-wrapper" })`
+const Wrapper = styled.div.attrs({ id: "grid-wrapper" })`
   border: 1px solid grey;
   border-radius: 3px;
   padding: 15px;
 `;
 
-let StyledGrid = styled.div`
+const StyledGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(
-    16,
+    ${props => props.numCols + 1},
     ${props => (props.rowHeight ? props.rowHeight + "px" : "6%")}
   );
   grid-template-rows: repeat(
-    16,
+    ${props => props.numRows + 1},
     ${props => (props.rowHeight ? props.rowHeight + "px" : "6%")}
   );
   margin-bottom: 0;
-`;
-
-let GridMeta = styled.section`
-  background: aliceblue;
-  margin-bottom: 15px;
 `;
 
 const Grid = ({ grid }) => {
   const [cellHeight, setCellHeight] = useState(null);
   const { height, width, contents } = grid;
 
-  const headers = Array(contents.length + 1)
+  const headers = Array(width + 1)
     .fill(0)
     .map((empty, i) => <div key={i}>{i === 0 ? "" : i - 1}</div>);
 
@@ -40,14 +37,14 @@ const Grid = ({ grid }) => {
     let elHeight = document.getElementById("grid-wrapper").clientWidth * 0.5;
     console.log(`cell height: ${elHeight / height}`);
     setCellHeight(elHeight / height);
-  }, []);
+  }, [height]);
 
   return (
     <Wrapper>
       <GridMeta>
         Grid -- h: {height}, w: {width}
       </GridMeta>
-      <StyledGrid rowHeight={cellHeight}>
+      <StyledGrid rowHeight={cellHeight} numRows={height} numCols={width}>
         {headers}
         {contents.map((row, y) => (
           <React.Fragment key={y}>
