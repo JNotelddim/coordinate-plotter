@@ -28,9 +28,12 @@ const updateContentsHeight = (newHeight, oldHeight, width, oldContents) => {
     newHeightContents = newHeightContents.splice(0, newHeight);
   } else if (newHeight > oldHeight) {
     // if height is now greater, create empty rows filled w/ empty cells
-    newHeightContents.push(
-      ...Array(newHeight - oldHeight).fill(Array(width).fill(""))
-    );
+    let newRows = Array(newHeight - oldHeight)
+      .fill(0)
+      .map(() => {
+        return Array(width).fill("");
+      });
+    newHeightContents.push(...newRows);
   }
 
   return newHeightContents;
@@ -44,10 +47,8 @@ const updateContentsWidth = (newWidth, oldWidth, oldContents) => {
   if (newWidth < oldWidth) {
     newWidthContents = newWidthContents.map(row => {
       let newRow = row.splice(0, newWidth);
-      console.log(newRow);
       return newRow;
     });
-    console.log(newWidthContents);
   } else if (newWidth > oldWidth) {
     //width increased, append empty cells to each row
     newWidthContents.map(row =>
@@ -86,14 +87,15 @@ const gridReducer = (state = DEFAULT_GRID_STATE, action) => {
         state.width,
         state.contents
       );
-      console.log(newWidthContents);
 
       return { ...state, width: newWidth, contents: newWidthContents };
 
     case types.SET_CELL_CONTENTS:
       let newCellValueContents = [...state.contents];
       let { x, y, newValue } = action.payload;
+      console.log(`${x},${y}`);
       newCellValueContents[y][x] = newValue.id;
+      console.log(newCellValueContents);
       return { ...state, contents: newCellValueContents };
 
     default:
