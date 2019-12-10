@@ -9,7 +9,6 @@ const MetaSection = styled.section`
   margin: 10px 0px;
 `;
 const GridMeta = ({ height, width, updateGridHeight, updateGridWidth }) => {
-  console.log(height);
   return (
     <MetaSection>
       <label>Height:</label>
@@ -17,6 +16,14 @@ const GridMeta = ({ height, width, updateGridHeight, updateGridWidth }) => {
         value={height}
         onChange={e => updateGridHeight(e.target.value)}
         type="number"
+        min="0"
+      />
+      <label>Width:</label>
+      <input
+        value={width}
+        onChange={e => updateGridWidth(e.target.value)}
+        type="number"
+        min="0"
       />
     </MetaSection>
   );
