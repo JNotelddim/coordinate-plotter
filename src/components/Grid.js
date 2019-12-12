@@ -7,6 +7,9 @@ import GridMeta from "./GridMeta";
 import InputModeSelector from "./InputModeSelector";
 
 const Wrapper = styled.div.attrs({ id: "grid-wrapper" })`
+  max-width: 100%;
+  width: 100%;
+
   border: 1px solid grey;
   border-radius: 3px;
   padding: 15px;
@@ -34,10 +37,12 @@ const Grid = ({ grid }) => {
     .map((empty, i) => <div key={i}>{i === 0 ? "" : i - 1}</div>);
 
   useEffect(() => {
-    let elHeight = document.getElementById("grid-wrapper").clientWidth * 0.5;
-    console.log(`cell height: ${elHeight / height}`);
-    setCellHeight(elHeight / height);
-  }, [height]);
+    const clientHeight = document.documentElement.clientHeight * 0.67;
+
+    const greaterGridDimension = height > width ? height : width;
+    const newCellHeight = clientHeight / greaterGridDimension;
+    setCellHeight(newCellHeight);
+  }, [height, width]);
 
   return (
     <Wrapper>
