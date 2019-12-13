@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+
 import { updateGridHeight, updateGridWidth } from "../state/grid/grid.actions";
 
 const MetaSection = styled.section`
@@ -27,6 +29,13 @@ const GridMeta = ({ height, width, updateGridHeight, updateGridWidth }) => {
       />
     </MetaSection>
   );
+};
+
+GridMeta.propTypes = {
+  height: PropTypes.number,
+  width: PropTypes.number,
+  updateGridHeight: PropTypes.func,
+  updateGridWidth: PropTypes.func
 };
 
 const mapStateToProps = state => {

@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import Cell from "./Cell";
-import GridMeta from "./GridMeta";
-import InputModeSelector from "./InputModeSelector";
 
 const Wrapper = styled.div.attrs({ id: "grid-wrapper" })`
   max-width: 100%;
-  width: 100%;
 
   border: 1px solid grey;
   border-radius: 3px;
   padding: 15px;
+  margin: 15px;
 `;
 
 const StyledGrid = styled.div`
@@ -46,9 +45,6 @@ const Grid = ({ grid }) => {
 
   return (
     <Wrapper>
-      <GridMeta>
-        Grid -- h: {height}, w: {width}
-      </GridMeta>
       <StyledGrid rowHeight={cellHeight} numRows={height} numCols={width}>
         {headers}
         {contents.map((row, y) => (
@@ -60,9 +56,12 @@ const Grid = ({ grid }) => {
           </React.Fragment>
         ))}
       </StyledGrid>
-      <InputModeSelector />
     </Wrapper>
   );
+};
+
+Grid.propTypes = {
+  grid: PropTypes.object
 };
 
 const mapStateToProps = state => {

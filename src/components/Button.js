@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const StyledButton = styled.button`
   border: none;
@@ -22,6 +23,12 @@ const Button = ({ children, onClick, selected }) => {
       {children}
     </StyledButton>
   );
+};
+
+Button.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.node),
+  onClick: PropTypes.func,
+  selected: PropTypes.bool
 };
 
 export default Button;

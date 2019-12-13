@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import Grid from "./Grid";
-import Output from "./Output";
-// import Snakes from "./Snakes";
 
-let Container = styled.div`
+import BoardGrid from "./Grid";
+import Output from "./Output";
+import GridMeta from "./GridMeta";
+import InputModeSelector from "./InputModeSelector";
+// import Snakes from './Snakes';
+
+const Container = styled.div`
   height: auto;
   padding: 10px;
 `;
@@ -12,8 +15,9 @@ let Container = styled.div`
 const App = () => {
   return (
     <Container>
-      <Grid />
-      {/*<Snakes />*/}
+      <BoardGrid />
+      <GridMeta />
+      <InputModeSelector />
       <Output />
     </Container>
   );

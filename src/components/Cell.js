@@ -1,9 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+
 import { setCellContents } from "../state/grid/grid.actions";
 
-let CellWrapper = styled.div`
+const CellWrapper = styled.div`
   background: #eee;
   border: 1px solid black;
   text-align: center;
@@ -21,6 +23,15 @@ const Cell = ({ x, y, value, setCellContents, inputMode, height }) => {
       {value}
     </CellWrapper>
   );
+};
+
+Cell.propTypes = {
+  x: PropTypes.number,
+  y: PropTypes.number,
+  value: PropTypes.string,
+  setCellContents: PropTypes.func,
+  inputMode: PropTypes.string,
+  height: PropTypes.number
 };
 
 const mapStateToProps = state => ({

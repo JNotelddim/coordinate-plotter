@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+
 import * as gridTypes from "../state/grid/grid.types";
 
 const BackgroundDiv = styled.div`
@@ -11,8 +13,8 @@ const BackgroundDiv = styled.div`
 `;
 
 const Output = ({ coordinateGroups }) => {
-  let sectionIds = [...Object.keys(coordinateGroups)];
-  let sections = sectionIds.map((sectionId, i) => (
+  const sectionIds = [...Object.keys(coordinateGroups)];
+  const sections = sectionIds.map((sectionId, i) => (
     <p key={i}>
       <b>{coordinateGroups[sectionId].name}</b> :{" "}
       {coordinateGroups[sectionId].values.join(", ")}
@@ -22,7 +24,7 @@ const Output = ({ coordinateGroups }) => {
 };
 
 const mapStateToProps = state => {
-  let coordinateGroups = {};
+  const coordinateGroups = {};
   state.snakes.forEach(
     snake => (coordinateGroups[snake.id] = { name: snake.name, values: [] })
   );
@@ -40,6 +42,13 @@ const mapStateToProps = state => {
   });
 
   return { coordinateGroups };
+};
+
+Output.propTypes = {
+  coordinateGroups: PropTypes.shape({
+    name: PropTypes.string,
+    values: PropTypes.array
+  })
 };
 
 export default connect(mapStateToProps)(Output);
