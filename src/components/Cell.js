@@ -30,7 +30,7 @@ Cell.propTypes = {
   y: PropTypes.number,
   value: PropTypes.string,
   setCellContents: PropTypes.func,
-  inputMode: PropTypes.string,
+  inputMode: PropTypes.shape({ name: PropTypes.string, id: PropTypes.string }),
   height: PropTypes.number
 };
 

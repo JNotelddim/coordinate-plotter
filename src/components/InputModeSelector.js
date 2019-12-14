@@ -1,13 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import PropTypes from "prop-types";
+import Grid from "@material-ui/core/Grid";
 
 import { setInputMode } from "../state/grid/grid.actions";
 import * as gridTypes from "../state/grid/grid.types";
 import Button from "./Button";
-
-const Container = styled.div``;
 
 const InputModeSelector = ({ snakes, inputMode, setInputMode }) => {
   const inputModeOptions = [
@@ -17,16 +15,21 @@ const InputModeSelector = ({ snakes, inputMode, setInputMode }) => {
   ];
 
   const modeOptionButtons = inputModeOptions.map((option, i) => (
-    <Button
-      key={i}
-      onClick={() => setInputMode(option)}
-      selected={inputMode === option}
-    >
-      {option.name}
-    </Button>
+    <Grid key={i} item xs={3}>
+      <Button
+        onClick={() => setInputMode(option)}
+        selected={inputMode === option}
+      >
+        {option.name}
+      </Button>
+    </Grid>
   ));
 
-  return <Container>{modeOptionButtons}</Container>;
+  return (
+    <Grid container item>
+      {modeOptionButtons}
+    </Grid>
+  );
 };
 
 InputModeSelector.propTypes = {

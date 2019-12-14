@@ -1,25 +1,22 @@
 import React from "react";
-import styled from "styled-components";
+import Grid from "@material-ui/core/Grid";
 
 import BoardGrid from "./Grid";
-import Output from "./Output";
 import GridMeta from "./GridMeta";
-import InputModeSelector from "./InputModeSelector";
-// import Snakes from './Snakes';
-
-const Container = styled.div`
-  height: auto;
-  padding: 10px;
-`;
+import Snakes from "./Snakes";
 
 const App = () => {
   return (
-    <Container>
-      <BoardGrid />
-      <GridMeta />
-      <InputModeSelector />
-      <Output />
-    </Container>
+    <Grid container direction="row">
+      <Grid item md={8} lg={6}>
+        <BoardGrid />
+      </Grid>
+
+      <Grid container item md={4} lg={6}>
+        <GridMeta />
+        <Snakes />
+      </Grid>
+    </Grid>
   );
 };
 

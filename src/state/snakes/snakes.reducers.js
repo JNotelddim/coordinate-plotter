@@ -1,4 +1,8 @@
+import { FOOD_INPUT_MODE, CLEAR_INPUT_MODE } from "../grid/grid.types";
+
 const DEFAULT_SNAKES_STATE = [
+  CLEAR_INPUT_MODE,
+  FOOD_INPUT_MODE,
   {
     name: "Snake 1",
     id: "s1"

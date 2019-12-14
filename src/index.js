@@ -7,7 +7,7 @@ import App from "./components/App";
 import gridReducer from "./state/grid/grid.reducers";
 import snakesReducer from "./state/snakes/snakes.reducers";
 
-let reducers = combineReducers({
+const reducers = combineReducers({
   grid: gridReducer,
   snakes: snakesReducer
 });
