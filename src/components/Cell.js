@@ -12,6 +12,7 @@ const CellWrapper = styled.div`
   padding: 0;
   height: ${props => (props.height ? props.height : 25)}px;
   width: ${props => (props.height ? props.height : 25)}px;
+  cursor: pointer;
 `;
 
 const Cell = ({ x, y, value, setCellContents, inputMode, height }) => {

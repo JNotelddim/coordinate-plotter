@@ -2,22 +2,34 @@ import React from "react";
 import { connect, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { setInputMode } from "../state/grid/grid.actions";
 
+const StyledGrid = styled(Grid)``;
+
+const SnakeWrapper = styled(Grid)`
+  cursor: pointer;
+  padding: 4px 24px;
+  width: 100%;
+  ${({ isSelected }) =>
+    css`
+      background-color: ${isSelected ? "aliceblue" : ""};
+    `}
+`;
+
 export const SnakeSection = ({ snake, isSelected }) => {
   const dispatch = useDispatch();
-  const Wrapper = styled.div`
-    background-color: ${isSelected ? "aliceblue" : ""};
-  `;
 
   return (
-    <Grid item onClick={() => dispatch(setInputMode(snake))} xs={12}>
-      <Wrapper>
-        <b>{snake.name}</b>
-      </Wrapper>
-    </Grid>
+    <SnakeWrapper
+      item
+      isSelected={isSelected}
+      onClick={() => dispatch(setInputMode(snake))}
+      xs={12}
+    >
+      <b>{snake.name}</b>
+    </SnakeWrapper>
   );
 };
 
@@ -31,9 +43,9 @@ const Snakes = ({ snakes, inputMode }) => {
   ));
 
   return (
-    <Grid container item>
+    <StyledGrid container item>
       {snakeSections}
-    </Grid>
+    </StyledGrid>
   );
 };
 

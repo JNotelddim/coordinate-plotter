@@ -9,12 +9,12 @@ import { Grid } from "@material-ui/core";
 const MetaSection = styled(Grid)`
   background: lightgrey;
   padding: 10px 5px;
-  margin: 10px 0px;
+  margin: 15px 0px;
 `;
 
 const GridMeta = ({ height, width, updateGridHeight, updateGridWidth }) => {
   return (
-    <MetaSection container item direction="row">
+    <MetaSection container direction="row">
       <Grid item xs={6}>
         <label>Height:</label>
         <input

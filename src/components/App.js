@@ -12,9 +12,9 @@ const App = () => {
         <BoardGrid />
       </Grid>
 
-      <Grid container item md={4} lg={6}>
-        <GridMeta />
-        <Snakes />
+      <Grid container item md={4} lg={6} direction="column">
+        <GridMeta item md={2} />
+        <Snakes item md={10} />
       </Grid>
     </Grid>
   );

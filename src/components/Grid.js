@@ -6,8 +6,7 @@ import PropTypes from "prop-types";
 import Cell from "./Cell";
 
 const Wrapper = styled.div.attrs({ id: "grid-wrapper" })`
-  max-width: 100%;
-
+  width: auto;
   border: 1px solid grey;
   border-radius: 3px;
   padding: 15px;
