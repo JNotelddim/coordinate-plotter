@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import styled, { css } from "styled-components";
 
 import { setInputMode } from "../state/grid/grid.actions";
+import { snakesDetailsSelector } from "../state/snakes/snakes.reducers";
 
 const StyledGrid = styled(Grid)``;
 
@@ -12,9 +13,10 @@ const SnakeWrapper = styled(Grid)`
   cursor: pointer;
   padding: 4px 24px;
   width: 100%;
+  min-height: 50px;
   ${({ isselected }) =>
     css`
-      background-color: ${isselected.toString() === "true" ? "aliceblue" : ""};
+      background-color: ${isselected === "true" ? "aliceblue" : ""};
     `}
 `;
 
@@ -29,6 +31,7 @@ export const SnakeSection = ({ snake, isselected }) => {
       xs={12}
     >
       <b>{snake.name}</b>
+      <p>{snake.id !== "" ? snake.coordinates : ""}</p>
     </SnakeWrapper>
   );
 };
@@ -50,7 +53,11 @@ const Snakes = ({ snakes, inputMode }) => {
 };
 
 SnakeSection.propTypes = {
-  snake: PropTypes.shape({ name: PropTypes.string, id: PropTypes.string }),
+  snake: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.string,
+    coordinates: PropTypes.array
+  }),
   isselected: PropTypes.bool
 };
 
@@ -62,7 +69,10 @@ Snakes.propTypes = {
 };
 
 const mapStateToProps = state => {
-  return { snakes: state.snakes, inputMode: state.grid.inputMode };
+  return {
+    snakes: snakesDetailsSelector(state),
+    inputMode: state.grid.inputMode
+  };
 };
 
 export default connect(mapStateToProps)(Snakes);
