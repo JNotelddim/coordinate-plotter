@@ -7,8 +7,6 @@ import styled, { css } from "styled-components";
 import { setInputMode } from "../state/grid/grid.actions";
 import { snakesDetailsSelector } from "../state/snakes/snakes.reducers";
 
-const StyledGrid = styled(Grid)``;
-
 const SnakeWrapper = styled(Grid)`
   cursor: pointer;
   padding: 4px 24px;
@@ -31,7 +29,7 @@ export const SnakeSection = ({ snake, isselected }) => {
       xs={12}
     >
       <b>{snake.name}</b>
-      <p>{snake.id !== "" ? snake.coordinates : ""}</p>
+      <p>{snake.id !== "" ? snake.coordinates.join(", ") : ""}</p>
     </SnakeWrapper>
   );
 };
@@ -46,9 +44,9 @@ const Snakes = ({ snakes, inputMode }) => {
   ));
 
   return (
-    <StyledGrid container item>
+    <Grid container item>
       {snakeSections}
-    </StyledGrid>
+    </Grid>
   );
 };
 

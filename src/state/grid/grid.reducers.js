@@ -5,7 +5,7 @@ const createGrid = (height, width) => {
   for (let y = 0; y < height; y++) {
     if (y >= grid.length) grid.push([]);
     for (let x = 0; x < width; x++) {
-      grid[y].push("");
+      grid[y].push({ id: types.CLEAR_INPUT_MODE.id, order: -1 });
     }
   }
   return grid;
@@ -16,7 +16,8 @@ const DEFAULT_GRID_STATE = {
   height: DEFAULT_HEIGHT,
   width: DEFAULT_HEIGHT,
   contents: createGrid(DEFAULT_HEIGHT, DEFAULT_HEIGHT), // TODO: intializeGrid(15, 15)
-  inputMode: types.FOOD_INPUT_MODE
+  inputMode: types.FOOD_INPUT_MODE,
+  inputOrder: 0
 };
 
 const updateContentsHeight = (newHeight, oldHeight, width, oldContents) => {
@@ -92,8 +93,12 @@ const gridReducer = (state = DEFAULT_GRID_STATE, action) => {
     case types.SET_CELL_CONTENTS: {
       const newCellValueContents = [...state.contents];
       const { x, y, newValue } = action.payload;
-      newCellValueContents[y][x] = newValue.id;
-      return { ...state, contents: newCellValueContents };
+      newCellValueContents[y][x] = { id: newValue.id, order: state.inputOrder };
+      return {
+        ...state,
+        contents: newCellValueContents,
+        inputOrder: state.inputOrder + 1
+      };
     }
 
     default:

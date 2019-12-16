@@ -21,7 +21,7 @@ const Cell = ({ x, y, value, setCellContents, inputMode, height }) => {
       onClick={() => setCellContents(inputMode, x, y)}
       height={height}
     >
-      {value}
+      {value.id}
     </CellWrapper>
   );
 };
@@ -29,7 +29,10 @@ const Cell = ({ x, y, value, setCellContents, inputMode, height }) => {
 Cell.propTypes = {
   x: PropTypes.number,
   y: PropTypes.number,
-  value: PropTypes.string,
+  value: PropTypes.shape({
+    id: PropTypes.string,
+    order: PropTypes.number
+  }),
   setCellContents: PropTypes.func,
   inputMode: PropTypes.shape({ name: PropTypes.string, id: PropTypes.string }),
   height: PropTypes.number

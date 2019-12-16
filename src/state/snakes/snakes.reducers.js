@@ -29,8 +29,8 @@ export const snakeWithCoordinateSelector = (appState, id) => {
   const coordinatesByRows = appState.grid.contents.map((row, y) => {
     const rowCells = [];
     row.forEach((cell, x) => {
-      if (cell === id) {
-        rowCells.push(`(${x},${y})`);
+      if (cell.id === id) {
+        rowCells.push({ order: cell.order, coords: `(${x},${y})` });
       }
     });
     return rowCells;
@@ -40,7 +40,14 @@ export const snakeWithCoordinateSelector = (appState, id) => {
     prev.concat(curr)
   );
 
-  snake.coordinates = flatCoordinates;
+  const orderedCoordinates = flatCoordinates.sort((a, b) => {
+    if (a.order < b.order) return -1;
+    if (a.order > b.order) return 1;
+    return 0;
+  });
+
+  snake.coordinates = orderedCoordinates.map(c => c.coords);
+  console.log(snake);
 
   return snake;
 };
