@@ -1,11 +1,13 @@
 import * as types from "./grid.types";
 
+const DEFAULT_CELL_VALUE = { id: types.CLEAR_INPUT_MODE.id, order: -1 };
+
 const createGrid = (height, width) => {
   const grid = [[]];
   for (let y = 0; y < height; y++) {
     if (y >= grid.length) grid.push([]);
     for (let x = 0; x < width; x++) {
-      grid[y].push({ id: types.CLEAR_INPUT_MODE.id, order: -1 });
+      grid[y].push(DEFAULT_CELL_VALUE);
     }
   }
   return grid;
@@ -32,7 +34,7 @@ const updateContentsHeight = (newHeight, oldHeight, width, oldContents) => {
     const newRows = Array(newHeight - oldHeight)
       .fill(0)
       .map(() => {
-        return Array(width).fill("");
+        return Array(width).fill(DEFAULT_CELL_VALUE);
       });
     newHeightContents.push(...newRows);
   }
@@ -52,7 +54,7 @@ const updateContentsWidth = (newWidth, oldWidth, oldContents) => {
   } else if (newWidth > oldWidth) {
     // width increased, append empty cells to each row
     newWidthContents.map(row =>
-      row.push(...Array(newWidth - oldWidth).fill(""))
+      row.push(...Array(newWidth - oldWidth).fill(DEFAULT_CELL_VALUE))
     );
   }
 
