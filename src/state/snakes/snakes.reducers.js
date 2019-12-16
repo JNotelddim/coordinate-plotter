@@ -1,4 +1,5 @@
 import { FOOD_INPUT_MODE, CLEAR_INPUT_MODE } from "../grid/grid.types";
+import { DELETE_SNAKE, ADD_SNAKE, EDIT_SNAKE } from "./snakes.types";
 
 const DEFAULT_SNAKES_STATE = [
   CLEAR_INPUT_MODE,
@@ -12,8 +13,23 @@ const DEFAULT_SNAKES_STATE = [
     id: "s2"
   }
 ];
+
 const snakesReducer = (state = DEFAULT_SNAKES_STATE, action) => {
   switch (action.type) {
+    case DELETE_SNAKE:
+      console.log(`Deleting snake w/ id: ${action.payload}`);
+      // const newSnakes = state.filter(s => s.id !== action.payload);
+      // console.log(newSnakes);
+      return [...state.filter(snake => snake.id !== action.payload)];
+    case ADD_SNAKE:
+      return [...state, action.payload];
+    case EDIT_SNAKE:
+      return [
+        ...state.snakes.map(snake =>
+          snake.id !== action.payload.id ? snake : action.payload
+        )
+      ];
+
     default:
       return state;
   }
@@ -25,7 +41,7 @@ export const snakeWithCoordinateSelector = (appState, id) => {
     return null;
   }
 
-  const snake = filteredSnake[0];
+  const snake = { ...filteredSnake[0] };
   const coordinatesByRows = appState.grid.contents.map((row, y) => {
     const rowCells = [];
     row.forEach((cell, x) => {
@@ -50,13 +66,6 @@ export const snakeWithCoordinateSelector = (appState, id) => {
   console.log(snake);
 
   return snake;
-};
-
-export const snakesDetailsSelector = appState => {
-  const snakesWCoordinates = appState.snakes.map(s =>
-    snakeWithCoordinateSelector(appState, s.id)
-  );
-  return snakesWCoordinates;
 };
 
 export default snakesReducer;

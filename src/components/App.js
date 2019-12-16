@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 
 import BoardGrid from "./Grid";
 import GridMeta from "./GridMeta";
-import Snakes from "./Snakes";
+import SnakesOverview from "./SnakesOverview";
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
 
       <Grid container item md={4} lg={6} direction="column">
         <GridMeta item md={2} />
-        <Snakes item md={10} />
+        <SnakesOverview item md={10} />
       </Grid>
     </Grid>
   );
