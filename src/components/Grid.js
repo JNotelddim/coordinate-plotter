@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import Cell from "./Cell";
 
 const Wrapper = styled.div.attrs({ id: "grid-wrapper" })`
-  width: auto;
   border: 1px solid grey;
   border-radius: 3px;
   padding: 15px;
@@ -15,14 +14,10 @@ const Wrapper = styled.div.attrs({ id: "grid-wrapper" })`
 
 const StyledGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(
-    ${props => props.numCols + 1},
-    ${props => (props.rowHeight ? props.rowHeight + "px" : "6%")}
-  );
-  grid-template-rows: repeat(
-    ${props => props.numRows + 1},
-    ${props => (props.rowHeight ? props.rowHeight + "px" : "6%")}
-  );
+  grid-template-columns: repeat(${props => props.numCols + 1}, 1fr);
+  grid-column-gap: 0;
+  grid-template-rows: repeat(${props => props.numRows + 1}, 1fr);
+  grid-row-gap: 0;
   margin-bottom: 0;
 `;
 
@@ -35,11 +30,8 @@ const Grid = ({ grid }) => {
     .map((empty, i) => <div key={i}>{i === 0 ? "" : i - 1}</div>);
 
   useEffect(() => {
-    const clientHeight = document.documentElement.clientHeight * 0.67;
-
-    const greaterGridDimension = height > width ? height : width;
-    const newCellHeight = clientHeight / greaterGridDimension;
-    setCellHeight(newCellHeight);
+    const gridWrapper = document.getElementById("grid-wrapper");
+    setCellHeight((gridWrapper.clientWidth * 0.8) / width);
   }, [height, width]);
 
   return (

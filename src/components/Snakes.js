@@ -12,19 +12,19 @@ const SnakeWrapper = styled(Grid)`
   cursor: pointer;
   padding: 4px 24px;
   width: 100%;
-  ${({ isSelected }) =>
+  ${({ isselected }) =>
     css`
-      background-color: ${isSelected ? "aliceblue" : ""};
+      background-color: ${isselected.toString() === "true" ? "aliceblue" : ""};
     `}
 `;
 
-export const SnakeSection = ({ snake, isSelected }) => {
+export const SnakeSection = ({ snake, isselected }) => {
   const dispatch = useDispatch();
 
   return (
     <SnakeWrapper
       item
-      isSelected={isSelected}
+      isselected={isselected.toString()}
       onClick={() => dispatch(setInputMode(snake))}
       xs={12}
     >
@@ -37,7 +37,7 @@ const Snakes = ({ snakes, inputMode }) => {
   const snakeSections = snakes.map(snake => (
     <SnakeSection
       snake={snake}
-      isSelected={snake === inputMode}
+      isselected={snake === inputMode}
       key={snake.id}
     />
   ));
@@ -51,7 +51,7 @@ const Snakes = ({ snakes, inputMode }) => {
 
 SnakeSection.propTypes = {
   snake: PropTypes.shape({ name: PropTypes.string, id: PropTypes.string }),
-  isSelected: PropTypes.bool
+  isselected: PropTypes.bool
 };
 
 Snakes.propTypes = {
