@@ -1,4 +1,5 @@
 import * as types from "./grid.types";
+import { DELETE_SNAKE } from "../snakes/snakes.types";
 
 const DEFAULT_CELL_VALUE = { id: types.CLEAR_INPUT_MODE.id, order: -1 };
 
@@ -101,6 +102,17 @@ const gridReducer = (state = DEFAULT_GRID_STATE, action) => {
         contents: newCellValueContents,
         inputOrder: state.inputOrder + 1
       };
+    }
+
+    case DELETE_SNAKE: {
+      const snakeRemovedContents = [...state.contents];
+      const newContents5 = snakeRemovedContents.map(row => {
+        return row.map(cell => {
+          return cell.id !== action.payload ? cell : DEFAULT_CELL_VALUE;
+        });
+      });
+      console.log(newContents5);
+      return { ...state, contents: newContents5 };
     }
 
     default:

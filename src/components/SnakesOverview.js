@@ -10,9 +10,12 @@ export const AddSnakeButton = () => {
 };
 
 const SnakesOverview = ({ snakes, inputMode }) => {
-  console.log(snakes);
   const snakeSections = snakes.map(snake => (
-    <SnakeInput id={snake.id} isselected={snake === inputMode} key={snake.id} />
+    <SnakeInput
+      id={snake.id}
+      isselected={snake.id === inputMode.id}
+      key={snake.id}
+    />
   ));
 
   return (

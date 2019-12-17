@@ -63,7 +63,7 @@ export const snakeWithCoordinateSelector = (appState, id) => {
   });
 
   snake.coordinates = orderedCoordinates.map(c => c.coords);
-  console.log(snake);
+  // console.log(snake)
 
   return snake;
 };
