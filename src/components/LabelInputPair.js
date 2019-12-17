@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
 import { addSnake } from "../state/snakes/snakes.actions";
-import { connect } from "tls";
 
 const LabelInputPair = ({
   newSnake,
@@ -12,6 +11,9 @@ const LabelInputPair = ({
   stopAddingSnake
 }) => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    console.log("mounted");
+  }, []);
 
   return (
     <div>
@@ -20,7 +22,6 @@ const LabelInputPair = ({
         {targetProperty.slice(1)}:
       </label>
       <input
-        key={newSnake.id + targetProperty}
         value={newSnake[targetProperty]}
         onChange={e =>
           setNewSnake({ ...newSnake, [targetProperty]: e.target.value })
