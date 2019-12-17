@@ -1,6 +1,6 @@
 import { ADD_SNAKE, EDIT_SNAKE, DELETE_SNAKE } from "./snakes.types";
 
-const addSnake = (id, name) => ({
+const addSnake = ({ id, name }) => ({
   type: ADD_SNAKE,
   payload: { id, name }
 });

@@ -9,7 +9,7 @@ import { CLEAR_INPUT_MODE, FOOD_INPUT_MODE } from "../state/grid/grid.types";
 import { snakeWithCoordinateSelector } from "../state/snakes/snakes.reducers";
 import { deleteSnake } from "../state/snakes/snakes.actions";
 
-const SnakeWrapper = styled(Grid)`
+export const SnakeWrapper = styled(Grid)`
   cursor: pointer;
   padding: 4px 24px;
   width: 100%;
@@ -33,27 +33,24 @@ DeleteSnakeButton.propTypes = {
 
 export const SnakeInput = ({ snake, isselected }) => {
   const dispatch = useDispatch();
-  const contents =
-    snake.id !== CLEAR_INPUT_MODE.id ? (
-      <p>
-        {snake.id !== FOOD_INPUT_MODE.id ? (
-          <DeleteSnakeButton
-            id={snake.id}
-            onClick={e => {
-              e.stopPropagation();
-              if (
-                window.confirm(`Are you sure you want to delete ${snake.name}`)
-              ) {
-                dispatch(deleteSnake(snake.id));
-              }
-            }}
-          />
-        ) : (
-          ""
-        )}
-        {snake.coordinates.join(", ")}
-      </p>
-    ) : null;
+  const contents = snake.id !== CLEAR_INPUT_MODE.id && (
+    <p>
+      {snake.id !== FOOD_INPUT_MODE.id && (
+        <DeleteSnakeButton
+          id={snake.id}
+          onClick={e => {
+            e.stopPropagation();
+            if (
+              window.confirm(`Are you sure you want to delete ${snake.name}`)
+            ) {
+              dispatch(deleteSnake(snake.id));
+            }
+          }}
+        />
+      )}
+      {snake.coordinates.join(", ")}
+    </p>
+  );
 
   return (
     <SnakeWrapper
