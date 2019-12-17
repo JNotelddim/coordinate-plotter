@@ -1,49 +1,18 @@
 import React, { useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 
-import SnakeInput, { SnakeWrapper } from "./SnakeInput";
-import { addSnake } from "../state/snakes/snakes.actions";
+import SnakeInput from "./SnakeInput";
+import AddSnake from "./AddSnake";
 
 let idCounter = 3;
-
-const LabelInputPair = ({ newSnake, setNewSnake, targetProperty }) => {
-  const dispatch = useDispatch();
-
-  return (
-    <div>
-      <label>
-        Snake {targetProperty.slice(0, 1).toUpperCase()}
-        {targetProperty.slice(1)}:
-      </label>
-      <input
-        key={10 + newSnake.id + targetProperty}
-        value={newSnake[targetProperty]}
-        onChange={e =>
-          setNewSnake({ ...newSnake, [targetProperty]: e.target.value })
-        }
-        onKeyPress={e => {
-          if (e.key === "Enter") {
-            console.log(newSnake);
-            dispatch(addSnake(newSnake));
-          }
-        }}
-      />
-    </div>
-  );
-};
-LabelInputPair.propTypes = {
-  targetProperty: PropTypes.string,
-  setNewSnake: PropTypes.func,
-  newSnake: PropTypes.shape({ name: PropTypes.string, id: PropTypes.string })
-};
 
 const SnakesOverview = ({ snakes, inputMode }) => {
   const [addingSnake, setAddingSnake] = useState(false);
   const [newSnake, setNewSnake] = useState({
-    name: "New Snake",
-    id: (idCounter++).toString()
+    name: "Snake " + idCounter,
+    id: idCounter.toString()
   });
 
   const snakeSections = snakes.map(snake => (
@@ -54,24 +23,23 @@ const SnakesOverview = ({ snakes, inputMode }) => {
     />
   ));
 
+  const stopAddingSnake = () => {
+    setAddingSnake(false);
+    setNewSnake({
+      name: "Snake " + ++idCounter,
+      id: idCounter.toString()
+    });
+  };
+
   return (
     <Grid container item>
       {snakeSections}
       {addingSnake ? (
-        <SnakeWrapper container item>
-          <LabelInputPair
-            key={1}
-            targetProperty="name"
-            newSnake={newSnake}
-            setNewSnake={setNewSnake}
-          />
-          <LabelInputPair
-            key={2}
-            targetProperty="id"
-            newSnake={newSnake}
-            setNewSnake={setNewSnake}
-          />
-        </SnakeWrapper>
+        <AddSnake
+          newSnake={newSnake}
+          setNewSnake={setNewSnake}
+          stopAddingSnake={stopAddingSnake}
+        />
       ) : (
         <button onClick={() => setAddingSnake(true)}>Add Snake</button>
       )}
